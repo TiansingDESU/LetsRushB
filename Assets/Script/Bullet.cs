@@ -61,7 +61,8 @@ public class Bullet : MonoBehaviour
                 {
                     GameObject go = GameObject.Instantiate(FX_PlayerHit);
                     go.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                    go.transform.position = hit.point;
+                    go.transform.position = (transform.position + hit.point) / 2;
+                    go.transform.rotation = transform.rotation;
                 }
             }
             else
@@ -70,7 +71,8 @@ public class Bullet : MonoBehaviour
                 {
                     GameObject go = GameObject.Instantiate(FX_SolidHit);
                     go.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                    go.transform.position = hit.point;
+                    go.transform.position = (transform.position + hit.point) / 2;
+                    go.transform.rotation = transform.rotation;
                 }
             }
             Destroy(gameObject);
