@@ -30,7 +30,7 @@ namespace Assets
         {
             yield return 1;
             m_txt_Pop_Txt.text = message;
-            StartCoroutine(WaitAndFadeAway(3f, 1f));
+            StartCoroutine(WaitAndFadeAway(1f, 1f));
         }
 
         IEnumerator WaitAndFadeAway(float waitTime,float fadeTime)

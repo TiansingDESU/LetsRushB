@@ -27,7 +27,7 @@ namespace Assets
             SceneManager.LoadScene(Def.SceneDef.MainScene);
 
             //加载主界面UI
-            UIManager.ShowUI(Def.UIDef.UI_Main);
+            UIManager.ShowUI(Def.UIDef.UI_Connect);
         }
     }
 

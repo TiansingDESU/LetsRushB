@@ -34,14 +34,19 @@ namespace Assets
             {
                 Application.Quit();
             }
-            else if (go == this.m_Btn_new_Btn.gameObject)
+            else if (go == this.m_Btn_test_Btn.gameObject)
             {
-                Debug.Log("Begin New Journey~");
                 UIManager.HideUI(Def.UIDef.UI_Main);
+                SceneManager.LoadScene("TestLevel");
             }
             else if(go== this.m_Btn_load_Btn.gameObject)
             {
                 UIManager.ShowUI(Def.UIDef.UI_Credits);
+                UIManager.HideUI(Def.UIDef.UI_Main);
+            }
+            else if(go== this.m_Btn_new_Btn.gameObject)
+            {
+                UIManager.ShowUI(Def.UIDef.UI_Lobby);
                 UIManager.HideUI(Def.UIDef.UI_Main);
             }
         }

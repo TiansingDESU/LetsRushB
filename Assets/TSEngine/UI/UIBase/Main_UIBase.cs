@@ -12,6 +12,7 @@ namespace Assets
 		protected Button m_Btn_new_Btn;
 		protected Button m_Btn_load_Btn;
 		protected Button m_Btn_exit_Btn;
+		protected Button m_Btn_test_Btn;
 
 		protected ActionManager ActionOnShow = new ActionManager();
 
@@ -21,6 +22,7 @@ namespace Assets
 			this.m_Btn_new_Btn = this.transform.Find("RightPanel/e_Btn_new").GetComponent<Button>();
 			this.m_Btn_load_Btn = this.transform.Find("RightPanel/e_Btn_load").GetComponent<Button>();
 			this.m_Btn_exit_Btn = this.transform.Find("RightPanel/e_Btn_exit").GetComponent<Button>();
+			this.m_Btn_test_Btn = this.transform.Find("RightPanel/e_Btn_test").GetComponent<Button>();
 
 			this.AddEventListener();
 		}
@@ -49,6 +51,7 @@ namespace Assets
 			this.m_Btn_new_Btn.onClick.AddListener(this.Onm_Btn_new_BtnClicked);
 			this.m_Btn_load_Btn.onClick.AddListener(this.Onm_Btn_load_BtnClicked);
 			this.m_Btn_exit_Btn.onClick.AddListener(this.Onm_Btn_exit_BtnClicked);
+			this.m_Btn_test_Btn.onClick.AddListener(this.Onm_Btn_test_BtnClicked);
 
 		}
 
@@ -65,6 +68,11 @@ namespace Assets
 		private void Onm_Btn_exit_BtnClicked()
 		{
 			OnButtonClicked(m_Btn_exit_Btn.gameObject);
+		}
+
+		private void Onm_Btn_test_BtnClicked()
+		{
+			OnButtonClicked(m_Btn_test_Btn.gameObject);
 		}
 
 	}
