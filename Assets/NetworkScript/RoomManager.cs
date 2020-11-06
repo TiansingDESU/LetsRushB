@@ -8,84 +8,81 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
-    public EZAction OnLobbyEnter = new EZAction();
-    public EZAction OnCreateSuccess = new EZAction();
-    public EZAction<short, string> OnCreateFailed = new EZAction<short, string>();
-    public EZAction OnJoinSuccess = new EZAction();
-    public EZAction<short, string> OnJoinFailed = new EZAction<short, string>();
 
+    public EZAction<Player> OnNewPlayerEnterRoom = new EZAction<Player>();
+    public EZAction<Player> OnOtherPlayerLeftRoom = new EZAction<Player>();
 
     public static RoomManager instance;
+
+    List<Player> playerList;
+
+    public bool isInRoom;
 
     private void Awake()
     {
         instance = this;
     }
 
-    public void JoinLobby()
-    {
-        if (!PhotonNetwork.IsConnected)
-        {
-            return;
-        }
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        base.OnJoinedLobby();
-        OnLobbyEnter?.Invoke();
-        print("Lobby Joined");
-    }
-
-    public void CreateRoom(CustomRoom room)
-    {
-        if (!PhotonNetwork.IsConnected)
-        {
-            return;
-        }
-        RoomOptions option = new RoomOptions();
-        option.MaxPlayers = (byte)room.maxPlayers;
-        PhotonNetwork.CreateRoom(room.roomName,option,TypedLobby.Default);
-    }
-
-    public void JoinRoom(string roomName)
-    {
-        if (!PhotonNetwork.IsConnected)
-        {
-            return;
-        }
-        PhotonNetwork.JoinRoom(roomName);
-    }
-
-    public override void OnCreatedRoom()
-    {
-        base.OnCreatedRoom();
-        OnCreateSuccess?.Invoke();
-    }
-
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
-        base.OnCreateRoomFailed(returnCode, message);
-        OnCreateFailed?.Invoke(returnCode, message);
-    }
-
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        OnJoinSuccess?.Invoke();
+        isInRoom = true;
+        playerList = new List<Player>();
+        Player[] list = PhotonNetwork.PlayerList;
+        for(int i = 0; i < list.Length; i++)
+        {
+            playerList.Add(list[i]);
+        }
     }
 
-    public override void OnJoinRoomFailed(short returnCode, string message)
+    public override void OnLeftRoom()
     {
-        base.OnJoinRoomFailed(returnCode, message);
-        OnJoinFailed?.Invoke(returnCode, message);
+        base.OnLeftRoom();
+        isInRoom = false;
+        playerList.Clear();
     }
-}
 
-public struct CustomRoom
-{
-    public string roomName;
-    public int maxPlayers;
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        playerList.Add(newPlayer);
+        OnNewPlayerEnterRoom?.Invoke(newPlayer);
+    }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        if (playerList.Contains(otherPlayer))
+        {
+            playerList.Remove(otherPlayer);
+        }
+        OnOtherPlayerLeftRoom?.Invoke(otherPlayer);
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public List<Player> GetPlayerList()
+    {
+        return playerList;
+    }
+
+    public bool IsHost()
+    {
+        return PhotonNetwork.IsMasterClient;
+    }
+
+    public bool IsRoomFull()
+    {
+        return (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount);
+    }
+
+    public void StartLevel(string levelName)
+    {
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.LoadLevel(levelName);
+    }
 }

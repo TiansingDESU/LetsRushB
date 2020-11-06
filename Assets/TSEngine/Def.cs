@@ -14,5 +14,6 @@
         public static string UI_Credits = "Credits_UI";
         public static string UI_Connect = "Connect_UI";
         public static string UI_Lobby = "Lobby_UI";
+        public static string UI_Room = "Room_UI";
     }
 }

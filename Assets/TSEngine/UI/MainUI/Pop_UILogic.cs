@@ -14,7 +14,6 @@ namespace Assets
         public override void OnInit()
         {
             base.OnInit();
-            Debug.Log("OnInit");
         }
 
         private string message;

@@ -30,6 +30,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
         AppSettings.Server = "ns.photonengine.cn";
 
         string nickName = GameSetting.instance.PlayerNickName == null ? "PlayerDefault" : GameSetting.instance.PlayerNickName;
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.NickName = nickName;
         PhotonNetwork.GameVersion = "0.0.1";
         PhotonNetwork.ConnectUsingSettings();
@@ -46,6 +47,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
     {
         base.OnDisconnected(cause);
         print("Disconnect/Connection Failed----reason:" + cause.ToString());
+        UIManager.ShowUIPop("Disconnect From Server");
         OnDisconnect?.Invoke(cause);
     }
 }
