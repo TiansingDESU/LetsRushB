@@ -1,9 +1,11 @@
-﻿using Photon.Pun;
+﻿using Assets;
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomPlayerProperties : MonoBehaviour
+public class CustomPlayerProperties : MonoBehaviourPunCallbacks
 {
 
     public static CustomPlayerProperties instance;
@@ -12,6 +14,8 @@ public class CustomPlayerProperties : MonoBehaviour
     {
         instance = this;
     }
+
+    public EZAction<Player, ExitGames.Client.Photon.Hashtable> OnPlayerUpdateProperties = new EZAction<Player, ExitGames.Client.Photon.Hashtable>();
 
     private ExitGames.Client.Photon.Hashtable customPlayerProperties = new ExitGames.Client.Photon.Hashtable();
 
@@ -38,6 +42,15 @@ public class CustomPlayerProperties : MonoBehaviour
         {
             value = null;
             return false;
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player target, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(target, changedProps);
+        if (target != null)
+        {
+            OnPlayerUpdateProperties?.Invoke(target, changedProps);
         }
     }
 

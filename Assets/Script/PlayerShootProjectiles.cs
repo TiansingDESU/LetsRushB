@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class PlayerShootProjectiles : MonoBehaviour
     private void OnShoot(Vector3 gunEndPos, Vector3 shootDir)
     {
         //shoot
-        Transform bulletTrans = Instantiate(pfBullet, gunEndPos, Quaternion.identity);
+        Transform bulletTrans = PhotonNetwork.Instantiate(pfBullet.name, gunEndPos, Quaternion.LookRotation(shootDir)).transform;
         bulletTrans.GetComponent<Bullet>().Setup(shootDir);
     }
 }

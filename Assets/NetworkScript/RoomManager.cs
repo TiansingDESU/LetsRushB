@@ -11,6 +11,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public EZAction<Player> OnNewPlayerEnterRoom = new EZAction<Player>();
     public EZAction<Player> OnOtherPlayerLeftRoom = new EZAction<Player>();
+    public EZAction<string> OnLevelLoadEnd = new EZAction<string>();
 
     public static RoomManager instance;
 
@@ -81,8 +82,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void StartLevel(string levelName)
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.LoadLevel(levelName);
+        //暂时两秒作为level加载的时间
+        TimeDelay.SetTimeout(() => {
+            OnLevelLoadEnd?.Invoke(levelName);
+        }, 2f);
     }
 }

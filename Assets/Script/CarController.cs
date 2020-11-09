@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarController : MonoBehaviour
+public class CarController : MonoBehaviourPun
 {
     [Header("References")]
     public Rigidbody carRB;
@@ -34,6 +35,12 @@ public class CarController : MonoBehaviour
 
     private void Start()
     {
+        //need PhotonView is Mine
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         carRB.transform.parent = null;
         offset = transform.position - carRB.transform.position;
     }
@@ -41,6 +48,12 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
+        //need PhotonView is Mine
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         //param
         float vert = Input.GetAxis("Vertical");
         float hor = Input.GetAxis("Horizontal");
@@ -74,6 +87,12 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //need PhotonView is Mine
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         grounded = false;
         RaycastHit hit;
         if (Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround))

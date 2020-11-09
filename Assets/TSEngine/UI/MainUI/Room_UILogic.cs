@@ -34,7 +34,7 @@ namespace Assets
             if (go == this.m_Btn_start4_Btn.gameObject)
             {
                 //LoadLevel
-                RoomManager.instance.StartLevel("TestNetLevel");
+                RoomManager.instance.StartLevel(Def.SceneDef.TestNetScene);
             }
             else if(go == this.m_Btn_leave5_Btn.gameObject)
             {

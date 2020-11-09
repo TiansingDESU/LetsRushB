@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviourPun
 {
 
     public float moveSpeed = 10;
@@ -23,6 +25,8 @@ public class Bullet : MonoBehaviour
     private Vector3 Dir;
     private float Length;
 
+    Action destory;
+
     private void Start()
     {
         Dir = Vector3.Normalize(endPos.position - startPos.position);
@@ -32,8 +36,13 @@ public class Bullet : MonoBehaviour
     public void Setup(Vector3 shootDir)
     {
         this.shootDir = shootDir;
-        transform.rotation = Quaternion.LookRotation(shootDir);
-        Destroy(gameObject, 5f);
+        destory = delegate { PhotonNetwork.Destroy(gameObject); };
+        TimeDelay.SetTimeout(destory, 5f);
+    }
+
+    private void OnDestroy()
+    {
+        destory = null;
     }
 
     private void Update()

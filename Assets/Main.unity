@@ -136,6 +136,8 @@ GameObject:
   - component: {fileID: 62323622}
   - component: {fileID: 62323623}
   - component: {fileID: 62323624}
+  - component: {fileID: 62323625}
+  - component: {fileID: 62323626}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -234,6 +236,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e56cbf5c5d13974fac921d671f101fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &62323625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62323617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a31062d2dc39148b18eb1ac879e5fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &62323626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62323617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a5f05f4042e39a48b7dc51eaea43e53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkPrefabList: []
 --- !u!1001 &160898523
 PrefabInstance:
   m_ObjectHideFlags: 0

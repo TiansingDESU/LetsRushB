@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarStatus : MonoBehaviour
+public class CarStatus : MonoBehaviourPun
 {
     [Header("玩家参数")]
     public string PlayerName;
@@ -25,6 +26,12 @@ public class CarStatus : MonoBehaviour
     }
 
     private void OnHit(float hit)
+    {
+        this.photonView.RPC("OnHitRPC", RpcTarget.All, hit);
+    }
+
+    [PunRPC]
+    private void OnHitRPC(float hit)
     {
         Heath -= hit;
         if (Heath < 0)

@@ -3,7 +3,8 @@
 
      public static class SceneDef
      {
-            public static string MainScene = "MainScene";
+        public static string MainScene = "MainScene";
+        public static string TestNetScene = "TestNetLevel";
      }
 
     public static class UIDef
