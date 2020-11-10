@@ -46,7 +46,7 @@ namespace Assets
                 fadeParam -=0.03f;
                 yield return new WaitForFixedUpdate();
             }
-            
+
             Destroy(this.gameObject);
         }
 

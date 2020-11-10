@@ -20,6 +20,7 @@ namespace Assets
             base.OnShow(param);
             ActionOnShow.RegAction(RoomManager.instance.OnNewPlayerEnterRoom, OnNewPlayerEnterRoom);
             ActionOnShow.RegAction(RoomManager.instance.OnOtherPlayerLeftRoom, OnOtherPlayerLeftRoom);
+            ActionOnShow.RegAction(RoomManager.instance.OnLevelLoadEnd, OnLevelLoadEnd);
 
             UIHelper.ClearTemplateChild(m_grid_Trans.gameObject);
             TimeDelay.SetTimeout(() => { UpdateInfo(); }, 0.5f);
@@ -27,6 +28,11 @@ namespace Assets
             //If Not Host, Hide StartGame Button
             m_Btn_start4_Btn.gameObject.SetActive(RoomManager.instance.IsHost());
             m_Btn_start4_Btn.enabled = RoomManager.instance.IsRoomFull();
+        }
+
+        private void OnLevelLoadEnd(string levelName)
+        {
+            UIManager.HideUI(Def.UIDef.UI_Room);
         }
 
         public override void OnButtonClicked(GameObject go)

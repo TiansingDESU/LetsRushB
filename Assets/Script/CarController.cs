@@ -30,17 +30,13 @@ public class CarController : MonoBehaviourPun
     public float emissionRate;
     public float maxEmission = 20f;
 
+    [Header("IsMine")]
+    public bool isMine;
 
     Vector3 offset;
 
     private void Start()
     {
-        //need PhotonView is Mine
-        if (!photonView.IsMine)
-        {
-            return;
-        }
-
         carRB.transform.parent = null;
         offset = transform.position - carRB.transform.position;
     }
@@ -49,6 +45,7 @@ public class CarController : MonoBehaviourPun
     private void Update()
     {
         //need PhotonView is Mine
+        isMine = photonView.IsMine;
         if (!photonView.IsMine)
         {
             return;
@@ -102,8 +99,7 @@ public class CarController : MonoBehaviourPun
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
 
-        emissionRate = 0;
-
+        float emissionVal = 0;
         if (grounded)
         {
             //Drag On Ground
@@ -113,7 +109,7 @@ public class CarController : MonoBehaviourPun
             {
                 carRB.AddForce(transform.forward * speedInput);
 
-                emissionRate = maxEmission;
+                emissionVal = maxEmission;
             }
         }
         else
@@ -123,8 +119,22 @@ public class CarController : MonoBehaviourPun
             //Add G Force
             carRB.AddForce(Vector3.up * -gravityForce);
         }
+        ChangeEmission(emissionVal);
+    }
 
-        foreach(var ps in dusts)
+    public void ChangeEmission(float rate)
+    {
+        if(emissionRate != rate)
+        {
+            photonView.RPC("ChangeEmissionRPC", RpcTarget.All, rate);
+        }
+    }
+
+    [PunRPC]
+    private void ChangeEmissionRPC(float rate)
+    {
+        emissionRate = rate;
+        foreach (var ps in dusts)
         {
             var emissionModule = ps.emission;
             emissionModule.rateOverTime = emissionRate;

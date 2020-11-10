@@ -1,4 +1,6 @@
 ﻿using Assets;
+using Assets.Def;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
@@ -90,7 +92,25 @@ public class RoomManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(levelName);
         //暂时两秒作为level加载的时间
         TimeDelay.SetTimeout(() => {
-            OnLevelLoadEnd?.Invoke(levelName);
+            object[] datas = new object[] { levelName };
+            RaiseEventOptions eventOptions = new RaiseEventOptions();
+            eventOptions.Receivers = ReceiverGroup.All;
+            PhotonNetwork.RaiseEvent(RaiseEventCode.LEVEL_LOAD_END_EVENT, datas, eventOptions, SendOptions.SendReliable);
         }, 2f);
+    }
+
+    private void Start()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += EventReceived;
+    }
+
+    public void EventReceived(EventData obj)
+    {
+        if(obj.Code == RaiseEventCode.LEVEL_LOAD_END_EVENT)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string levelName = (string)datas[0];
+            OnLevelLoadEnd?.Invoke(levelName);
+        }
     }
 }

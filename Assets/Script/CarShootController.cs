@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerActionEvent))]
-public class CarShootController : MonoBehaviour
+public class CarShootController : MonoBehaviourPun
 {
 
     public Transform gunEndPos;
@@ -17,7 +18,12 @@ public class CarShootController : MonoBehaviour
 
     private void Update()
     {
-        //左键按下
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        //左键按下/空格按下
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             pAction.Shoot?.Invoke(gunEndPos.position, gunEndPos.forward);

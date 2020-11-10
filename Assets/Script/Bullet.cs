@@ -35,9 +35,14 @@ public class Bullet : MonoBehaviourPun
 
     public void Setup(Vector3 shootDir)
     {
+        photonView.RPC("SetupRPC", RpcTarget.All, shootDir);
+    }
+
+    [PunRPC]
+    public void SetupRPC(Vector3 shootDir)
+    {
         this.shootDir = shootDir;
-        destory = delegate { PhotonNetwork.Destroy(gameObject); };
-        TimeDelay.SetTimeout(destory, 5f);
+        Destroy(gameObject, 5f);
     }
 
     private void OnDestroy()

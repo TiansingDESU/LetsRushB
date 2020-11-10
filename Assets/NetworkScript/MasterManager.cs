@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -15,24 +16,21 @@ public class MasterManager : MonoBehaviourPunCallbacks
 
     public List<NetworkPrefab> networkPrefabList = new List<NetworkPrefab>();
 
-    public static GameObject NetworkInstantiate(GameObject go, Vector3 pos, Quaternion rotation)
+    public static GameObject NetworkInstantiate(string prefabName, Vector3 pos, Quaternion rotation)
     {
         foreach (var prefab in instance.networkPrefabList)
         {
-            if (prefab.Prefab == go)
+            if (prefab.Prefab.name == prefabName)
             {
                 GameObject result = PhotonNetwork.Instantiate(prefab.Path, pos, rotation);
                 return result;
             }
-            else
-            {
-                Debug.LogError("Path is empty for gameobject name " + prefab.Prefab);
-                return null;
-            }
         }
+        Debug.LogError("not found in networkPrefabList for gameobject name " + prefabName);
         return null;
     }
 
+#if UNITY_EDITOR
     [RuntimeInitializeOnLoadMethod]
     private static void PopularNetworkPrefab()
     {
@@ -40,6 +38,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
             return;
 
         GameObject[] results = Resources.LoadAll<GameObject>("");
+        instance.networkPrefabList.Clear();
         for (int i = 0; i < results.Length; i++)
         {
             if (results[i].GetComponent<PhotonView>() != null)
@@ -49,5 +48,16 @@ public class MasterManager : MonoBehaviourPunCallbacks
                     instance.networkPrefabList.Add(new NetworkPrefab(results[i], path));
             }
         }
+    }
+#endif
+
+    public static Player GetMyPlayerInfo()
+    {
+        return PhotonNetwork.LocalPlayer;
+    }
+
+    public static void NetworkDestroy(GameObject go)
+    {
+        PhotonNetwork.Destroy(go);
     }
 }

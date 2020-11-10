@@ -26,6 +26,6 @@ public class NetworkPrefab
         if (startIdx == -1)
             return string.Empty;
         else
-            return path.Substring(startIdx, path.Length - (startIdx + extensionLength));
+            return path.Substring(startIdx + 10, path.Length - (startIdx + 10 + extensionLength));
     }
 }

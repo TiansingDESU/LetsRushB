@@ -17,4 +17,9 @@
         public static string UI_Lobby = "Lobby_UI";
         public static string UI_Room = "Room_UI";
     }
+
+    public static class RaiseEventCode
+    {
+        public static byte LEVEL_LOAD_END_EVENT = 1;
+    }
 }

@@ -67,7 +67,7 @@ namespace Assets
 
         private void OnCreateSuccess()
         {
-            UIManager.ShowUIPop("Create Success");
+
         }
 
         private void OnCreateFailed(short returnCode, string message)
@@ -77,7 +77,6 @@ namespace Assets
 
         private void OnJoinSuccess()
         {
-            UIManager.ShowUIPop("Join Success");
             UIManager.HideUI(Def.UIDef.UI_Lobby);
             UIManager.ShowUI(Def.UIDef.UI_Room);
         }

@@ -17,7 +17,7 @@ public class PlayerShootProjectiles : MonoBehaviour
     private void OnShoot(Vector3 gunEndPos, Vector3 shootDir)
     {
         //shoot
-        Transform bulletTrans = PhotonNetwork.Instantiate(pfBullet.name, gunEndPos, Quaternion.LookRotation(shootDir)).transform;
+        Transform bulletTrans = MasterManager.NetworkInstantiate("pfBullet", gunEndPos, Quaternion.LookRotation(shootDir)).transform;
         bulletTrans.GetComponent<Bullet>().Setup(shootDir);
     }
 }

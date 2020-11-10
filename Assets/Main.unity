@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a31062d2dc39148b18eb1ac879e5fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!114 &62323626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +261,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5f05f4042e39a48b7dc51eaea43e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkPrefabList: []
+  networkPrefabList:
+  - Prefab: {fileID: 1327836409321083465, guid: ff7e676f9c1282947921db7fc50d65d2,
+      type: 3}
+    Path: NetworkPrefabs/Player/TestPlayer
+  - Prefab: {fileID: 3307549776017128302, guid: 42047145871bab344920b47a3de5b437,
+      type: 3}
+    Path: NetworkPrefabs/Weapon/pfBullet
 --- !u!1001 &160898523
 PrefabInstance:
   m_ObjectHideFlags: 0

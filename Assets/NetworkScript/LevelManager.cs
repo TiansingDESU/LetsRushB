@@ -7,6 +7,9 @@ public class LevelManager : MonoBehaviourPunCallbacks
 {
     public static LevelManager instance;
 
+    public GameObject player;
+
+
     private void Awake()
     {
         instance = this;
@@ -28,14 +31,21 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
     public void LevelStart()
     {
+        Transform pos;
         if (RoomManager.instance.IsHost())
         {
             //born in Pos A
+            pos = LevelInfo.instance.TeamABornPos;
+            
         }
         else
         {
             //born in pos B
+            pos = LevelInfo.instance.TeamBBornPos;
         }
+        player = MasterManager.NetworkInstantiate("TestPlayer", pos.position, pos.rotation);
+        player.GetComponent<CarStatus>().PlayerName = MasterManager.GetMyPlayerInfo().NickName;
+        player.GetComponent<CarStatus>().PlayerId = MasterManager.GetMyPlayerInfo().UserId;
     }
 
 }
