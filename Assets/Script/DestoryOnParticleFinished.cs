@@ -9,6 +9,7 @@ public class DestoryOnParticleFinished : MonoBehaviour
     private void Start()
     {
         DestoryDelay = GetComponent<ParticleSystem>().main.duration;
-        TimeDelay.SetTimeout(() => { Destroy(gameObject); }, DestoryDelay);
+        //add 1 seconds to fade away
+        TimeDelay.SetTimeout(() => { Destroy(gameObject); }, DestoryDelay + 1f);
     }
 }

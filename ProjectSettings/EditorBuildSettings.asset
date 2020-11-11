@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestNetLevel.unity
     guid: 4e4016e78e21c58438a15a7ea9cee4b5
+  - enabled: 1
+    path: Assets/Scenes/Net_DayScene.unity
+    guid: 67adac43bcf286444be612074ab04f75
   m_configObjects: {}

@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
     public void OnLevelLoadEnd(string levelName)
     {
-        if(levelName!= Assets.Def.SceneDef.TestNetScene)
+        if(levelName!= Assets.Def.SceneDef.Net_DayScene)
         {
             return;
         }

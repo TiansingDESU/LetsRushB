@@ -5,6 +5,7 @@
      {
         public static string MainScene = "MainScene";
         public static string TestNetScene = "TestNetLevel";
+        public static string Net_DayScene = "Net_DayScene";
      }
 
     public static class UIDef
