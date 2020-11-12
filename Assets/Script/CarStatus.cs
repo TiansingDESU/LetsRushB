@@ -55,7 +55,7 @@ public class CarStatus : MonoBehaviourPun
         {
             return;
         }
-        Debug.Log("Player:" + PlayerId + "just Dead");
+        Debug.Log("Player:" + PlayerName + "just Dead");
         isDead = true;
         //play Dead FX
         GameObject goFx = GameObject.Instantiate(DeadFX_prefab);
@@ -64,5 +64,7 @@ public class CarStatus : MonoBehaviourPun
         TSEngine.Instance.ExecuteOnNextUpdate(() => {
             Destroy(gameObject);
         });
+
+        LevelManager.instance.OnPlayerDead(PlayerId);
     }
 }

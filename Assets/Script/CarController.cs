@@ -35,10 +35,29 @@ public class CarController : MonoBehaviourPun
 
     Vector3 offset;
 
+    bool isLevelEnd;
+
     private void Start()
     {
         carRB.transform.parent = null;
         offset = transform.position - carRB.transform.position;
+
+        isLevelEnd = LevelManager.instance.isLevelEnd;
+    }
+
+    private void OnEnable()
+    {
+        LevelManager.instance.OnLevelEnd += OnLevelEnd;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.instance.OnLevelEnd -= OnLevelEnd;
+    }
+
+    private void OnLevelEnd()
+    {
+        isLevelEnd = true;
     }
 
 
@@ -47,6 +66,11 @@ public class CarController : MonoBehaviourPun
         //need PhotonView is Mine
         isMine = photonView.IsMine;
         if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        if (isLevelEnd)
         {
             return;
         }

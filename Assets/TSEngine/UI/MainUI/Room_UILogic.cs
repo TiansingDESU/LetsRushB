@@ -33,6 +33,7 @@ namespace Assets
         private void OnLevelLoadEnd(string levelName)
         {
             UIManager.HideUI(Def.UIDef.UI_Room);
+            UIManager.ShowUI(Def.UIDef.UI_Battle);
         }
 
         public override void OnButtonClicked(GameObject go)

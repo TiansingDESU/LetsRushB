@@ -4932,6 +4932,7 @@ GameObject:
   - component: {fileID: 1327836408120582233}
   - component: {fileID: 1327836408120582232}
   - component: {fileID: 1327836408120582235}
+  - component: {fileID: 6125285362681111077}
   - component: {fileID: 1327836408120582234}
   - component: {fileID: 1327836408120582229}
   m_Layer: 0
@@ -5002,6 +5003,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6125285362681111077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327836408120582228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0459f0d42f5fa5043bb81cf707f866c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1327836409321083470}
 --- !u!135 &1327836408120582234
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10042,8 +10056,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carRB: {fileID: 1327836408120582229}
-  forwardAccel: 100
-  reverseAccel: 50
+  forwardAccel: 70
+  reverseAccel: 35
   maxSpeed: 250
   turnStrength: 90
   gravityForce: 20
@@ -10052,7 +10066,7 @@ MonoBehaviour:
   grounded: 0
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 1281
   groundRayLength: 0.5
   groundRayPoint: {fileID: 1327836408683555466}
   LeftFrontWheel: {fileID: 1327836407976837708}
