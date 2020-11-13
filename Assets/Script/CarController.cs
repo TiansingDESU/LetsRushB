@@ -47,12 +47,12 @@ public class CarController : MonoBehaviourPun
 
     private void OnEnable()
     {
-        LevelManager.instance.OnLevelEnd += OnLevelEnd;
+        LevelManager.instance.OnShowLevelEnd += OnLevelEnd;
     }
 
     private void OnDisable()
     {
-        LevelManager.instance.OnLevelEnd -= OnLevelEnd;
+        LevelManager.instance.OnShowLevelEnd -= OnLevelEnd;
     }
 
     private void OnLevelEnd()

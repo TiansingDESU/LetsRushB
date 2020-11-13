@@ -12,7 +12,7 @@ namespace Assets
         {
             base.OnShow(param);
             ActionOnShow.RegAction(LevelManager.instance.OnLifeChange, OnLifeChange);
-            ActionOnShow.RegAction(LevelManager.instance.OnLevelEnd, OnLevelEnd);
+            ActionOnShow.RegAction(LevelManager.instance.OnShowLevelEnd, OnLevelEnd);
 
             m_Img_end_Img.gameObject.SetActive(false);
             m_Txt_blue_Txt.text = m_Txt_red_Txt.text = string.Empty;

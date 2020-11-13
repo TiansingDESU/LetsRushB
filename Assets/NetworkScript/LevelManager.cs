@@ -1,5 +1,6 @@
 ﻿using Assets;
 using Assets.Def;
+using DG.Tweening;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -37,6 +38,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
     #region Level Action Callbacks
     public EZAction OnLifeChange = new EZAction();
+    public EZAction OnShowLevelEnd = new EZAction();
     public EZAction OnLevelEnd = new EZAction();
     #endregion
 
@@ -180,6 +182,15 @@ public class LevelManager : MonoBehaviourPunCallbacks
         player.GetComponent<CarStatus>().PlayerId = MasterManager.GetMyPlayerInfo().UserId;
     }
 
+    public void KillLocalPlayer()
+    {
+        if (player != null)
+        {
+            //如果玩家没死，就处死
+            player.GetComponent<PlayerActionEvent>().OnHit?.Invoke(1000);
+        }
+    }
+
     public void CheckEnd()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -209,6 +220,20 @@ public class LevelManager : MonoBehaviourPunCallbacks
             WinTeam = TeamType.BlueTeam;
         isLevelEnd = true;
         OnLevelEnd?.Invoke();
+
+        LevelInfo.instance.EndMissle.SetActive(true);
+        TSEngine.Instance.ExecuteOnNextUpdate(() =>
+        {
+            float delay = LevelInfo.instance.EndMissle.GetComponent<MissleDown>().exploseDelay;
+            TimeDelay.SetTimeout(() => { 
+                LevelInfo.instance.WaterEnd.GetComponent<DOTweenAnimation>().DOPlay();
+                TimeDelay.SetTimeout(() => {
+                    OnShowLevelEnd?.Invoke();
+                },6f);
+            }, delay);
+        });
+        
+
     }
 
     public void EventReceived(EventData obj)

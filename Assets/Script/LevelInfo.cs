@@ -18,4 +18,8 @@ public class LevelInfo : MonoBehaviour
     public CinemachineVirtualCamera VirtualCamera;
 
     public Camera PlayerCamera;
+
+    public GameObject EndMissle;
+
+    public GameObject WaterEnd;
 }
